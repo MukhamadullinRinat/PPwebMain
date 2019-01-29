@@ -1,0 +1,91 @@
+﻿@using PPweb.Models
+@model EditCClient
+
+<script>normalizeCardCreateDate('.clientsCards')</script>
+
+<div class="col-lg-10 no-padding">
+    <div class="leftBlocks clientInfo">
+        <h2>Данные клиента</h2>
+
+        <div class="rowsInInputForm">
+                <p class="fio">@Model.LastName @Model.FirstName @Model.MiddleName</p>
+                <p>
+                    @(string.IsNullOrEmpty(Model.Sex) ? "" : Model.Sex == "Female" || Model.Sex == "1" ? "Пол: женский" : "Пол: мужской") &emsp;
+                @(string.IsNullOrEmpty(Model.BirthDate) ? "" : "дата рождения: " + Model.NormalizingDate(Model.BirthDate)) &emsp;  @(string.IsNullOrEmpty(Model.MobilePhone) ? "" : "тел.: " + Model.MobilePhone)
+            </p>
+            <p>
+                @(string.IsNullOrEmpty(Model.EMail) ? MvcHtmlString.Create("") : MvcHtmlString.Create("e-mail: " + Model.EMail + "&emsp;")) 
+                @(string.IsNullOrEmpty(Model.SnilsNumber) ? "" : "СНИЛС: " + Model.SnilsNumber)
+                &emsp; @(string.IsNullOrEmpty(Model.FiscalNumber) ? "" : "ИНН: " + Model.FiscalNumber)
+            </p>
+            <br />
+            <p><b>Паспорт РФ</b></p>
+            <p>Серия: @Model.Serie &emsp; Номер: @Model.Number &emsp; Выдан: @Model.NormalizingDate(Model.DeliveryDate) @Model.Delivery</p>
+            <p>Код подразделения: @Model.DepartmentCode</p>
+            <br />
+            <p><b>Адрес</b></p>
+            <p>
+                @Model.Zip @Model.Region @Model.DistrictArea @Model.City @(string.IsNullOrEmpty(Model.Street) ? "" : "ул. " + Model.Street)
+                @(string.IsNullOrEmpty(@Model.House) ? "" : "д. " + @Model.House) @(string.IsNullOrEmpty(Model.Building) ? "" : "стр. " + Model.Building)  @(string.IsNullOrEmpty(Model.Corp) ? "" : "корп. " + Model.Corp)
+                @(string.IsNullOrEmpty(Model.Appartment) ? "" : "кв. " + Model.Appartment)
+            </p>
+            <br />
+            <p><b>Дополнительно</b></p>
+            <p>Согласие на получение рекламной информации: @(Model.SendBy == null ? "не указано" : (bool)Model.SendBy ? "да" : "нет")</p>
+            <p>Получает пенсию на почте: @(Model.ReceivePension == 1 ? "да" : "нет")</p>
+
+        </div>
+        <div class="buttonsContainer">
+            <button type="button" class="btn-primary btn col-lg-3 col-lg-offset-9" id="btnComm" name="btnComm" value="editCust" onclick="openEditCustModalBox()">Редактировать</button>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-10 no-padding">
+
+    <div class="leftBlocks clientsCards">
+        <div>
+            <h2>Карты клиента</h2>
+            @{
+                if (ViewBag.rCard != null)
+                {
+                    <table class="table cardsTable">
+                        <tr>
+                            <th class="leftTd">Номер карты</th>
+                            <th>Тип карты</th>
+                            <th>Дата и время выдачи</th>
+                            <th class="rightTd">Статус карты</th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in ViewBag.rCard)
+                        {
+                            <tr onclick="clickToCard(@item.Id, &#34gridCardResults&#34)" class="gridResults gridCardResults" id="g_@item.Id">
+                                <td class="leftTd">@item.number</td>
+                                <td class="cardName">@item.name</td>
+                                <td class="activationDate">@item.activationDate</td>
+                                <td class="rightTd">@item.status</td>
+                                <td><input type="hidden" value="@item.Id" /></td>
+                            </tr>
+                        }
+                    </table>
+                }
+            }
+        </div>
+        <div class="buttonsContainer">
+            <button type="button" class="btn-default btn col-lg-3 blockAndReplaceButton" id="blockCardsButton" onclick="openBlockCardModalBox()">Блокировать карту</button>
+            <button type="button" class="btn-default btn col-lg-3 toRight10px blockAndReplaceButton" id="replaceCardsButton" onclick="openReplaceCardModalBox()">Заменить карту</button>
+            <button id="issueCardButton" type="button" class="btn-primary btn col-lg-3 col-lg-offset-3 disabled notClickable" onclick="openNewCardModalBox()">Оформить карту</button>
+        </div>
+    </div>
+</div>
+<div class="col-lg-2">
+    <div class="tipsContainer" id="tipsContainer3"></div>
+</div>
+
+<div id="cardActions"></div>
+
+<script>
+    var isVisible = searchBlokedCard();
+    setEnableNewCardButton(isVisible);
+</script>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="X-UA-Compatible" content="IE=11">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>@ViewBag.Title - Post Pasport Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="padding-top:10px">
+        <!--<img src="~/Content/Resources/image001.jpg" />-->
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/jquery.js")
+    @Scripts.Render("~/Scripts/jquery-ui.js")
+    @Scripts.Render("~/Scripts/jquery.validate.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
+    @Styles.Render("~/Content/jquery-ui.theme.css")
+    @Styles.Render("~/Content/jquery-ui.structure.css")
+    @Styles.Render("~/Content/jquery-ui.css")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery.maskedinput.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/Scripts/PPlocalscripts.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

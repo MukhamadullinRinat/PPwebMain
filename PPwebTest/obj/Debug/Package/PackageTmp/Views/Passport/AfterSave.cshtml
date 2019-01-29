@@ -1,0 +1,10 @@
+﻿
+
+@if(string.IsNullOrEmpty(ViewBag.EMess))
+{
+    <p class="infoMsg">@ViewBag.Info</p>
+}
+else
+{
+    <p class="erroreMsg">@ViewBag.EMess</p>
+}

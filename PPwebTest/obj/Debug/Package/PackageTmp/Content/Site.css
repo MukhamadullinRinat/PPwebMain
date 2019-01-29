@@ -1,0 +1,501 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: rgb(242, 242, 242);
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.little {
+    max-width: 30px;
+}
+.little2 {
+    max-width: 50px;
+}
+.little3 {
+    max-width: 80px;
+}
+.medium {
+    max-width: 130px;
+}
+.large {
+    max-width: 200px;
+}
+
+clickable{
+    cursor:pointer;
+    background: #ffff99;
+}
+
+.selected{
+    cursor:pointer;
+    background: #ffff99;
+}
+
+.main{
+    width: 80%;
+}
+
+.no-padding{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.rowsInInputForm {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.toLeft10px {
+    right: 10px;
+}
+
+.toRight10px {
+    left: 10px;
+}
+
+body.modal-open {
+    margin-right: auto;
+}
+
+.modal {
+    opacity: 1;
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align:  top;
+    width: 80%;
+    margin-top: 350px;
+}
+
+.modal-backdrop {
+    opacity: 0.7 !important;
+}
+.modal-body{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+
+}
+.blockInNewClient {
+    border-bottom-color: azure;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+}
+
+.blockInNewClient h4{
+    padding-bottom: 10px;
+}
+
+.buttonsInFooterNewClient, .blockInNewClient {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+
+.gridResults:hover{
+    background-color: rgb(218, 230, 244);
+}
+
+.selectedGridResults {
+    background-color: rgb(218, 230, 244);
+}
+
+.leftBlocks{
+    background-color: white;
+    padding-bottom: 30px;
+}
+
+legend {
+    font-size: xx-large;
+    padding-top: 20px;
+}
+.buttonsContainer{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.mainBlocks{
+    margin-bottom: 50px;
+}
+
+.leftTd, h2{
+    padding-left: 20px !important;
+}
+.rightTd {
+    padding-right: 20px !important;
+}
+
+.clientInfo, .clientsCards, .cardActions{
+    padding-bottom: 60px;
+    margin-top: 50px;
+    padding-top: 5px;
+}
+
+.clientsCards {
+    padding-bottom: 70px;
+    margin-top: 30px;
+}
+
+.cardActions {
+    padding-bottom: 10px;
+    margin-top: 30px;
+}
+
+.blockAndReplaceButton {
+    visibility: hidden;
+}
+
+#replaceCardModalBox, #blockCardModalBox {
+    width: 85%;
+    margin: auto;
+    overflow-y: hidden;
+}
+
+#replaceCardModalBox legend, #replaceCardModalBox .row{
+    padding-left: 20px;
+    padding-right: 35px;
+}
+#replaceCardModalBox .replaceButtonContainer{
+    padding-left: 35px;
+}
+
+.erroreMsg{
+    color: red;
+    padding-left: 20px;
+}
+
+.infoMsg {
+    color: green;
+    padding-left: 20px;
+}
+
+.notClickable, .notClickable:hover, .notClickable:active {
+    background-color: rgb(129, 174, 216);
+    border: none;
+}
+
+.notClickable:visited {
+    background-color: rgb(129, 174, 216);
+    border: none;
+}
+
+#reasonContainer {
+    height: 12em;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#reasonContainer div{
+    padding-bottom: 10px;
+}
+#blockCardModalBox legend, #blockCardModalBox .row {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#blockCardModalBox .row{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#blockCardModalBox .buttonsContainer{
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.btn-primary{
+    background-color: rgb(0, 88, 175);
+}
+
+.bodyModalBoxContainer div, .bodyModalBoxContainer h4, .bodyModalBoxContainer legend {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.bodyModalBoxContainer .buttonContainer {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.bodyModalBoxContainer .row div {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.mainHeader{
+    border-bottom-color: rgb(230, 230, 230);
+    border-bottom-style: solid;
+    margin: 15px 0 15px 0;
+    border-bottom-width: 2px;
+    color: rgb(0, 86, 169);
+}
+.mainHeader div {
+    flex-direction: row;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 5px;
+}
+.mainHeader div div {
+    margin: 0 0 0 0;
+    padding-bottom: 10px;
+    font-size: x-large;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.activeTab, .mainHeader div div:hover {
+    border-bottom-color: rgb(0, 87, 167);
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+
+.displayNone{
+    display: none;
+}
+
+#passportRow{
+    padding-bottom: 30px; 
+}
+
+#passportRow div{
+    padding: 5px 18px 5px 18px;
+}
+
+#cardsRow {
+    padding: 5px 20px 20px 20px;
+}
+
+label {
+    font-weight: 100;
+}
+
+#fPassNumberCol {
+    right: 30px;
+}
+
+#fitPageContainer{
+    text-align: right;
+    padding-right: 15px;
+}
+
+.field-validation-error {
+    color: #b94a48;
+}
+
+#searchResultClients .erroreMsg {
+    padding-top: 30px;
+    font-size: 1.5em;
+}
+#searchResultClients #tipsContainer2, #searchResultClients .searchResultClientsContainer {
+    margin-top: 40px;
+}
+#searchResultClients .erroreMsgContainer{
+    margin-top: 40px;
+}
+#tipsContainer3, #tipsContainer4 {
+    margin-top: 30px;
+}
+#searchContainer{
+    margin-top: 20px;
+}
+
+.buttonsContainerMain{
+    margin-top: 50px;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -11px;
+    margin-left: -63px;
+    z-index: 9999999999;
+}
+
+* html .centered {
+    position: absolute;
+}
+
+#bodyMask{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+    z-index: 99999999;
+    opacity: 0.4;
+    background-color: white;
+}
+
+#header {
+    padding-bottom: 0px;
+    height: 60px;
+    padding-top: 20px;
+}
+
+.headerName {
+    color: rgb(0, 88, 175);
+    font-size: 20px;
+}
+
+.operatorContainer {
+    margin-left: 10px;
+    width: 200px;
+    font-size: 12px;
+    color: #B4B4B4;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    Justify-content: space-between;
+    height: 40px;
+}
+
+#headerLine {
+    border-bottom: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #DAD9D9;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+    left: 0px;
+}
+
+#verticalLine {
+    border-left: solid;
+    border-left-color: #DAD9D9;
+    position: fixed;
+    height: 50vw;
+    top: 60px;
+}
+
+body {
+    padding-top: 0px !important;
+}
+
+.tips{
+    background-color: white;
+    margin-left: 20px;
+    padding: 20px;
+    width: 200px;
+    font-weight: 500;
+}
+
+.litleModalBoxDialog {
+    margin-top: 15vw;
+}
+.errPassMsg{
+    color: red;
+    padding-left: 20px;
+}
+.currentTime {
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: #B4B4B4;
+}
+.currentDate {
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+    color: #B4B4B4;
+}
+
+#clientModalBox #BirthDate {
+    padding: 5px;
+}
+#clientModalBox #House, #clientModalBox #Building, #clientModalBox #Corp, #clientModalBox #Appartment,
+#clientModalBox #Serie, #clientModalBox #DeliveryDate {
+    padding: 0px;
+    text-align: center;
+}
+.defaultValueInSelectList{
+    color: lightgray;
+}
+.optionalValueInSelectList{
+    color: black;
+}
+.fio{
+    font-size: large;
+}
+.ui-icon{
+    display: none;
+}
+.ui-datepicker-calendar th, .ui-datepicker-calendar td {
+    padding: 10px;
+}
+.ui-state-default {
+    padding: 5px;
+    border-radius: 3px;
+}
+.ui-datepicker-title{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.ui-datepicker-month, .ui-datepicker-year{
+    width: 100px;
+    border-radius: 3px;
+}
+.ui-widget-content{
+    border: none!important;
+}
+
+#confirmationModalBox {
+    background-color: rgba(72, 72, 72, 0.7);
+}
+#confirmationModalBox .modal-dialog{
+    width: 60vw;
+    margin-top: 20vw;
+}
+#confirmationModalBox .modal-content {
+    height: 15vw;
+    padding: 40px;
+    font-size: large;
+}
+#confirmationModalBox .body-modal-content{
+    height: 80%;
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+.fBirthDateValidate, .BirthDateValidate, .DeliveryDateValidate{
+    color: red;
+}
+

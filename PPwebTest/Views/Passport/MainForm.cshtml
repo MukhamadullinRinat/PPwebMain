@@ -1,0 +1,139 @@
+﻿@model PPweb.Models.FilterCust
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+    var opsName = string.Empty;
+    if(ViewBag.OpsInfo != null)
+    {
+        opsName = ViewBag.OpsInfo.OpsOperatorName;
+        if (!string.IsNullOrEmpty(opsName))
+        {
+            var arr = opsName.Split(" "[0]);
+            for (var i = 0; i < arr.Length; i++)
+            {
+                if (i == 0)
+                {
+                    opsName = arr[i];
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(arr[i])) {
+                        opsName += " " + arr[i][0] + ".";
+                    }
+                }
+            }
+        }
+    }
+}
+
+<body>
+    <div id="header">
+        <div class="row">
+            <div class="col-lg-4 headerName">ПОЧТОВЫЙ ПАСПОРТ</div>
+            <div class="col-lg-1 col-lg-offset-4 currentDate"></div>
+            <div class="col-lg-1 currentTime"></div>
+            <div class="col-lg-2 rightContainer">
+                <div class="operatorContainer">
+                    @if (ViewBag.OpsInfo != null)
+                    {
+                        <div class="operatorName">@(ViewBag.OpsInfo.OpsOperatorName != null ? opsName : "")</div>
+                        <div class="indexOps">@(ViewBag.OpsInfo.OpsIndex != null ? "ОПС" + ViewBag.OpsInfo.OpsIndex : "")</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="headerLine"></div>
+    <div class="container main" style="width:100%">
+
+        @using (Ajax.BeginForm("MainForm", "Passport", new AjaxOptions { UpdateTargetId = "searchResultClients" }, new { @onsubmit = "bodyMask(true)", @Id = "searchForm" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <div class="row" id="searchContainer">
+                <div class="col-lg-10 no-padding leftBlocks">
+
+                    <fieldset>
+                        <div class="row mainHeader">
+                            <div class="col-lg-12">
+                                <div id="cardTab" class="activeTab" onclick="clickToTypeSearch(&quot;#cardTab&quot;)">Поиск по карте</div>
+                                <div id="passportTab" onclick="clickToTypeSearch(&quot;#passportTab&quot;)">Поиск по паспорту</div>
+                            </div>
+                        </div>
+
+                        <div id="cardsRow">
+                            <div class="row">
+                                <div class="col-lg-1">@Html.LabelFor(m => m.fCardNumber, "Номер карты", new { @class = "control-label" })</div>
+                                <div class="col-lg-11">@Html.TextBoxFor(m => m.fCardNumber, new { @type = "text", @class = "form-control" })</div>
+                                <div class="col-lg-offset-1 col-lg-11">@Html.ValidationMessageFor(m => m.fCardNumber)</div>
+                            </div>
+                        </div>
+
+                        <div id="passportRow" class="displayNone">
+                            <div class="row">
+                                <div class="col-lg-2">@Html.LabelFor(m => m.fPassSeria, "Серия и номер", new { @class = "control-label" })</div>
+                                <div class="col-lg-2">@Html.TextBoxFor(m => m.fPassSeria, new { @type = "text", @class = "form-control" })</div>
+                                <div class="col-lg-3" id="fPassNumberCol">@Html.TextBoxFor(m => m.fPassNumber, new { @type = "text", @class = "form-control" })</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">@Html.ValidationMessageFor(m => m.fPassSeria)</div>
+                                <div class="col-lg-8">@Html.ValidationMessageFor(m => m.fPassNumber)</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-1">@Html.LabelFor(m => m.fLastName, "Фамилия", new { @class = "control-label" })</div>
+                                <div class="col-lg-5">@Html.TextBoxFor(m => m.fLastName, new { @type = "text", @class = "form-control" })</div>
+                                <div class="col-lg-1">@Html.LabelFor(m => m.fFirstName, "Имя", new { @class = "control-label" })</div>
+                                <div class="col-lg-5">@Html.TextBoxFor(m => m.fFirstName, new { @type = "text", @class = "form-control" })</div>
+                                <div class="col-lg-offset-1 col-lg-5">@Html.ValidationMessageFor(m => m.fLastName)</div>
+                                <div class="col-lg-offset-1 col-lg-5">@Html.ValidationMessageFor(m => m.fFirstName)</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-1">@Html.LabelFor(m => m.fMiddleName, "Отчество", new { @class = "control-label" })</div>
+                                <div class="col-lg-5">@Html.TextBoxFor(m => m.fMiddleName, new { @type = "text", @class = "form-control" })</div>
+                                <div class="col-lg-2">@Html.LabelFor(m => m.fBirthDate, "Дата рождения", new { @class = "control-label" })</div>
+                                <div class="col-lg-4">@Html.TextBoxFor(m => m.fBirthDate, new { @type = "text", @class = "form-control", @max = "9999-12-31" })</div>
+                                <div class="col-lg-offset-1 col-lg-5">@Html.ValidationMessageFor(m => m.fMiddleName)</div>
+                                <div class="col-lg-offset-1 col-lg-5">@Html.ValidationMessageFor(m => m.fBirthDate, null, new {@class = "fBirthDateValidate" })</div>
+                            </div>
+
+                        </div>
+
+                        <div class="buttonsContainer">
+                            <button type="button" onclick="clearnSearchForm()" class="btn-default btn col-lg-3 col-lg-offset-6 toLeft10px" id="btnComm" name="btnComm" value="runClear">Очистить</button>
+                            <button type="submit" class="btn-primary btn col-lg-3" id="btnComm" name="btnComm" value="runSearch">Найти</button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-lg-2">
+                    <div id="verticalLineContainer"><div id="verticalLine"></div></div>
+                    <div class="tipsContainer" id="tipsContainer1">
+                        <div class="tips">
+                            <p>Выберите тип <b>Поиска клиента</b> и заполните поля данных клиента.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <div id="searchResultClients"></div>
+        <div id="modalBoxContainer"></div>
+
+        <div id="confirmationModalBoxContainer"></div>
+
+        <br />
+        <div class="row">
+            <div class="col-lg-10 buttonsContainer buttonsContainerMain">
+                <button type="button" class="btn-primary btn col-lg-3" onclick="location.href='@Url.Action("Index", "Passport")'">Выход</button>
+                <button type="button" class="btn-primary btn col-lg-3 col-lg-offset-6" onclick="openNewClientModal()">Новый клиент</button>
+            </div>
+        </div>
+        <div id="responseContainer"></div>
+    </div>
+    <div id="preloaderContainer"></div>
+</body>

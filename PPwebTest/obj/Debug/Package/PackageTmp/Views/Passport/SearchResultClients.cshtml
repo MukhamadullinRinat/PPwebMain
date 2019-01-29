@@ -1,0 +1,57 @@
+﻿@using System.Web.Mvc
+@using PPweb.Models
+
+<script>
+    bodyMask(false);
+</script>
+
+@if (ViewBag.rCust != null && ViewBag.rCust.Count != 0)
+{
+    FilterCust fc = new FilterCust();
+<div class="row">
+    <div class="col-lg-10 no-padding leftBlocks searchResultClientsContainer">
+        <h2>Результаты поиска</h2>
+        <table class="table">
+            <tr>
+                <th class="leftTd">Паспорт РФ, <br />серия, номер</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Дата рождения</th>
+                <th class="rightTd">Мобильный телефон</th>
+            </tr>
+
+            @foreach (var clientInfo in ViewBag.rCust)
+            {
+                <tr onclick="clickToClient(@clientInfo.id, &#34gridClientResults&#34, null)" class="gridResults gridClientResults" id="g_@clientInfo.id" >
+                    <td class="leftTd">@clientInfo.passdata</td>
+                    <td>@clientInfo.lastName</td>
+                    <td>@clientInfo.firstName</td>
+                    <td>@clientInfo.middleName</td>
+                    <td>@fc.DateToDocFormat2(clientInfo.birthDate)</td>
+                    <td class="rightTd">@clientInfo.mobilePhone <p style="display:none" class="clientId">@clientInfo.id</p></td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="col-lg-2">
+        <div class="tipsContainer" id="tipsContainer2"></div>
+    </div>
+</div>
+
+<script>
+    setTips("#tipsContainer1", "#tipsContainer2", "Выберите в <b> Результатах поиска</b> одного из клиентов.Тогда вы сможете посмотреть <b> Данные клиента</b> и <b> Карты клиента</b>.")
+</script>
+
+
+<div id="clientInfo" class="row"></div>
+}
+else
+{
+    <div class="row erroreMsgContainer">
+        <div class="col-lg-10 no-padding leftBlocks">
+            @MvcHtmlString.Create(ViewBag.ErroreMsg)
+        </div>
+    </div>
+}

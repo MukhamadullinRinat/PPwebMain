@@ -1,0 +1,51 @@
+﻿@model PPweb.Models.ModifyCard
+
+@Scripts.Render("~/Scripts/jquery.validate.js")
+@Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
+
+<div id="replaceCardModalBox" class="modal fade" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                @using (Ajax.BeginForm("ReplaceCard", "Passport" , new AjaxOptions { UpdateTargetId = "responseContainer" }, new { @onsubmit = "bodyMask(true)" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.oldId)
+                    @Html.HiddenFor(m => m.oldNumber)
+                    <fieldset>
+                    <legend>Замена карты @Model.oldNumber на новую</legend>
+                    <div class="row">
+                        <div class="col-lg-2">@Html.LabelFor(m => m.newNumber, "Номер новой карты", new { @class = "control-label" })</div>
+                        <div class="col-lg-7">@Html.TextBoxFor(m => m.newNumber, new {@class="form-control" })</div>
+                        <button type="submit"  name="btn" value="check" class="btn-primary btn col-lg-3" id="checkingCard">Проверить карту</button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-10 col-lg-offset-2">@Html.ValidationMessageFor(m => m.newNumber)</div>
+                    </div>
+
+                    <div class="row">
+                        <div id="checkingReplaceCardMsgContainer">
+                            <p class="infoMsg col-lg-offset-2 col-lg-10"></p>
+                            <p class="erroreMsg col-lg-offset-2 col-lg-10"></p>
+                        </div>
+                    </div>
+                    <legend></legend>
+
+                    <div class="row replaceButtonContainer">
+                        <button data-dismiss="modal" type="button" class="btn-default btn col-lg-3" id="cancelReplaceCardButton">Отменить</button>
+                        <button type="submit" name="btn" value="replace" class="btn-primary btn col-lg-3 col-lg-offset-6 disabled notClickable" id="replaceCardButton">Заменить</button>
+                    </div>
+
+                    <div class="row">
+                        <div id="replaceCardMsgContainer">
+                            <p class="infoMsg col-lg-10"></p>
+                            <p class="erroreMsg col-lg-10"></p>
+                        </div>
+                    </div>
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </div>
+</div>

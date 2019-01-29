@@ -1,0 +1,36 @@
+﻿
+<script>normalizeCardCreateDate('.cardActions')</script>
+
+@if (ViewBag.rAction != null)
+{
+<div class="col-lg-10 no-padding">
+    <div class="leftBlocks cardActions">
+        <h2>История операций по карте </h2>
+            <table class="table">
+                <tr>
+                    <th class="leftTd">Операция</th>
+                    <th>Дата и время</th>
+                    <th>Оператор</th>
+                    <th class="rightTd">Индекс ОПС</th>
+                </tr>
+
+                @foreach (var cardAction in ViewBag.rAction)
+                {
+                    <tr class="gridResults">
+                        <td class="leftTd">@cardAction.cardAction</td>
+                        <td class="activationDate">@cardAction.date</td>
+                        <td>@cardAction.userName</td>
+                        <td class="rightTd">@cardAction.shop</td>
+                    </tr>
+                }
+            </table>
+    </div>
+</div>
+<div class="col-lg-2">
+    <div class="tipsContainer" id="tipsContainer4">
+        <div class="tips">
+            <p>Чтобы вернуться к <b>Данным клиента</b> прокрутите экран вверх.</p>
+        </div>
+    </div>
+</div>
+}

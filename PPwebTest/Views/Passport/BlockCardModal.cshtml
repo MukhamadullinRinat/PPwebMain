@@ -1,0 +1,49 @@
+﻿@using PPweb.Models
+@model ModifyCard
+
+@Scripts.Render("~/Scripts/jquery.validate.js")
+@Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
+
+<div id="blockCardModalBox" class="modal fade" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog litleModalBoxDialog">
+        <div class="modal-content">
+
+            @using (Ajax.BeginForm("BlockCard", "Passport", new AjaxOptions { UpdateTargetId = "responseContainer" }, new {@onsubmit = "bodyMask(true)" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(m => m.oldNumber)
+
+                <div class="modal-body">
+                    <fieldset>
+                        <legend>Блокировка карты</legend>
+                        <div class="row">
+                            <div class="col-lg-3">@Html.LabelFor(m => m.Reason, "Причина блокировки", new {@class = "control-label" })</div>
+                            <div class="col-lg-9">@Html.DropDownListFor(m => m.Reason, ViewBag.Reasons as SelectList, "Не выбрана", new { @class = "form-control" })</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 commentsFields displayNone">@Html.LabelFor(m => m.Comment, "Комментарий", new { @class = "control-label" })</div>
+                            <div class="col-lg-9 commentsFields displayNone">@Html.TextAreaFor(m => m.Comment,5, 20, new { @class = "form-control" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-3 col-lg-9">@Html.ValidationMessageFor(m => m.Comment)</div>
+                        </div>
+
+                        <div class="row" id="blockCardMsgContainer">
+                            <p class="infoMsg col-lg-9 col-lg-offset-3"></p>
+                            <p class="erroreMsg col-lg-9 col-lg-offset-3"></p>
+                        </div>
+
+                        <legend></legend>
+                        <div class="row buttonsContainer">
+                            <button data-dismiss="modal" type="button" class="btn-default btn col-lg-3" id="cancelBlockCardButton">Отменить</button>
+                            <button type="submit" class="btn-primary btn col-lg-3 col-lg-offset-6 notClickable disabled" id="blockCardButton">Блокировать карту</button>
+                        </div>
+                    </fieldset>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

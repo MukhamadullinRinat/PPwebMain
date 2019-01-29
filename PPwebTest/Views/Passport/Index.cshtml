@@ -1,0 +1,28 @@
+﻿@model PPweb.Models.Authorization
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("Поиск", "MainForm")
+        <h5>Getting started</h5>
+        <p>@ViewBag.DateTT</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        
+    </div>
+    <div class="col-md-5">      
+            <h5>Авторизуйтесь</h5>
+            <p></p>
+        @using (Html.BeginForm())
+        {
+            <p>Логин: @Html.TextBoxFor(x => x.LoginA)</p>
+            <p>Пароль: @Html.PasswordFor(x => x.PasswordA)</p>
+            <input id="ButtonOK" type="submit" value="OK" />
+        }
+        <p>@if (ViewBag.MessageAutor != "") { @ViewBag.MessageAutor; }</p>  
+    </div>
+</div>

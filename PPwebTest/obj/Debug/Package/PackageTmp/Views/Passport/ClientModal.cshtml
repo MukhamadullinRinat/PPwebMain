@@ -1,0 +1,203 @@
+﻿@model PPweb.Models.Client
+
+@Scripts.Render("~/Scripts/jquery.validate.js")
+@Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
+
+<div id="clientModalBox" class="modal fade" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            @using (Ajax.BeginForm("ProcessingClient", "Passport", new AjaxOptions { UpdateTargetId = "responseContainer" }, new { @onsubmit = "bodyMask(true)" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(m => m.ModalBoxType)
+
+                <div class="modal-body bodyModalBoxContainer">
+                    <fieldset>
+                        <legend>@Model.Header</legend>
+
+                        @if (Model.ModalBoxType == "NewClient" || Model.ModalBoxType == "NewCard")
+                        {
+                            <h4>Оформление карты</h4>
+                            <div class="row">
+                                <div class="col-lg-1">@Html.LabelFor(m => m.CardNumber, "Номер карты", new { @class = "control-label" })</div>
+                                <div class="col-lg-8">@Html.TextBoxFor(m => m.CardNumber, new { @type = "text", @class = "form-control inputWithButton" })</div>
+                                <div class="col-lg-3"><button type="submit" name="commBtn" class="btn-primary btn col-lg-12 buttonWithInput" title="Проверить карту" id="checkCN" value="runCheck">Проверить карту</button></div>
+                                <div class="col-lg-offset-1">@Html.ValidationMessageFor(m => m.CardNumber)</div>
+                            </div>
+
+                            <div class="row">
+                                <div id="checkMsgContainer">
+                                    <p class="infoMsg col-lg-10 col-lg-offset-1"></p>
+                                    <p class="erroreMsg col-lg-10 col-lg-offset-1"></p>
+                                </div>
+                            </div>
+
+                            <legend></legend>
+                        }
+
+                        @Html.Hidden("custId", Model.ID)
+                        <h4>Данные клиента</h4>
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.LastName, "Фамилия", new { @class = "control-label blockedAfterShow" })</div>
+                            <div class="col-lg-11">@Html.TextBoxFor(m => m.LastName, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                            <div class="col-lg-offset-1">@Html.ValidationMessageFor(m => m.LastName)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.FirstName, "Имя", new { @class = "control-label" })</div>
+                            <div class="col-lg-5">@Html.TextBoxFor(m => m.FirstName, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.MiddleName, "Отчество", new { @class = "control-label" })</div>
+                            <div class="col-lg-5">@Html.TextBoxFor(m => m.MiddleName, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-5">@Html.ValidationMessageFor(m => m.FirstName)</div>
+                            <div class="col-lg-offset-1 col-lg-5">@Html.ValidationMessageFor(m => m.MiddleName)</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.Sex, "Пол", new { @class = "control-label" })</div>
+                            <div class="col-lg-1">@Html.RadioButtonFor(m => m.Sex, "0", new { id = "Sex0", @class= "blockedAfterShow" })<label>муж</label></div>
+                            <div class="col-lg-1">@Html.RadioButtonFor(m => m.Sex, "1", new { id = "Sex1", @class = "blockedAfterShow" })<label>жен</label></div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.BirthDate, "Дата рождения", new { @class = "control-label" })</div>
+                            <div class="col-lg-2">@Html.TextBoxFor(m => m.BirthDate, new { @type = "text", @class = "form-control blockedAfterShow", @max = "9999-12-31" })</div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.MobilePhone, "Моб. телефон", new { @class = "control-label" })</div>
+                            <div class="col-lg-5">@Html.TextBoxFor(m => m.MobilePhone, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-2">@Html.ValidationMessageFor(m => m.Sex)</div>
+                            <div class="col-lg-4">@Html.ValidationMessageFor(m => m.BirthDate, null, new { @class = "BirthDateValidate" })</div>
+                            <div class="col-lg-4">@Html.ValidationMessageFor(m => m.MobilePhone)</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.EMail, "E-mail", new { @class = "control-label" })</div>
+                            <div class="col-lg-11">@Html.TextBoxFor(m => m.EMail, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-11">@Html.ValidationMessageFor(m => m.EMail)</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.SnilsNumber, "СНИЛС", new { @class = "control-label" })</div>
+                            <div class="col-lg-5">@Html.TextBoxFor(m => m.SnilsNumber, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.FiscalNumber, "ИНН", new { @class = "control-label" })</div>
+                            <div class="col-lg-5">@Html.TextBoxFor(m => m.FiscalNumber, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-5">@Html.ValidationMessageFor(m => m.SnilsNumber)</div>
+                            <div class="col-lg-offset-1 col-lg-5">@Html.ValidationMessageFor(m => m.FiscalNumber)</div>
+                        </div>
+
+                        <legend></legend>
+
+                        <h4>Паспорт РФ</h4>
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.Serie, "Серия", new { @class = "control-label" })</div>
+                            <div class="col-lg-1">@Html.TextBoxFor(m => m.Serie, new { @type = "text", @class = "form-control blockedAfterShow", @onchange = "UniqPassCheck()" })</div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.Number, "Номер", new { @class = "control-label" })</div>
+                            <div class="col-lg-2">@Html.TextBoxFor(m => m.Number, new { @type = "text", @class = "form-control blockedAfterShow", @onchange = "UniqPassCheck()" })</div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.DeliveryDate, "Дата выдачи", new { @class = "control-label" })</div>
+                            <div class="col-lg-2">@Html.TextBoxFor(m => m.DeliveryDate, new { @type = "text", @class = "form-control blockedAfterShow", @max = "9999-12-31" })</div>
+                            <div class="col-lg-2">@Html.LabelFor(m => m.DepartmentCode, "Код подразделения", new { @class = "control-label" })</div>
+                            <div class="col-lg-2">@Html.TextBoxFor(m => m.DepartmentCode, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                        </div>
+                        @Html.Hidden("PassportForValid", Model.PassportForValid)
+                        <div class="row">
+                            <div class="col-lg-2">@Html.ValidationMessageFor(m => m.Serie)</div>
+                            <div class="col-lg-offset-1 col-lg-2">@Html.ValidationMessageFor(m => m.Number)</div>
+                            <div class="col-lg-offset-1 col-lg-2">@Html.ValidationMessageFor(m => m.DeliveryDate, null, new { @class = "DeliveryDateValidate" })</div>
+                            <div class="col-lg-offset-2 col-lg-2">@Html.ValidationMessageFor(m => m.DepartmentCode)</div>
+                        </div>
+                        <div class="row">
+                            <div id="checkingPassportUniqMsgContainer">
+                                <p class="errPassMsg col-lg-offset-2 col-lg-10"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">@Html.LabelFor(m => m.Delivery, "Кем выдан", new { @class = "control-label" })</div>
+                            <div class="col-lg-10">@Html.TextBoxFor(m => m.Delivery, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-11">@Html.ValidationMessageFor(m => m.Delivery)</div>
+                        </div>
+
+                        <legend></legend>
+
+                        <h4>Адрес</h4>
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.Zip, "Индекс", new { @class = "control-label" })</div>
+                            <div class="col-lg-2">@Html.TextBoxFor(m => m.Zip, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                            <div class="col-lg-2">@Html.LabelFor(m => m.RegionCode, "Регион/ Область", new { @class = "control-label" })</div>
+                            <div class="col-lg-7">@Html.DropDownListFor(m => m.RegionCode, ViewBag.Regions as SelectList, ViewBag.CurrRegion as string, new { @class = "form-control blockedAfterShow", @onchange = "OnChangeFederal()" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-2">@Html.ValidationMessageFor(m => m.Zip)</div>
+                            <div class="col-lg-offset-1 col-lg-8">@Html.ValidationMessageFor(m => m.RegionCode)</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.District, "Район", new { @class = "control-label" })</div>
+                            <div class="col-lg-5">@Html.TextBoxFor(m => m.District, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                            <div class="col-lg-2">@Html.LabelFor(m => m.City, "Населенный пункт", new { @class = "control-label" })</div>
+                            <div class="col-lg-4">@Html.TextBoxFor(m => m.City, new { @type = "text", @class = "form-control blockedAfterShow", @onchange = "OnChangeFederal()", @data_val = "true", @data_val_required = "Поле является обязательным для заполнения" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-6 col-lg-6">@Html.ValidationMessageFor(m => m.City, null, new { @class = "CityValidate" })</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.Street, "Улица", new { @class = "control-label" })</div>
+                            <div class="col-lg-11">@Html.TextBoxFor(m => m.Street, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-11">@Html.ValidationMessageFor(m => m.Street)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1">@Html.LabelFor(m => m.House, "Дом", new { @class = "control-label" })</div>
+                            <div class="col-lg-1">@Html.TextBoxFor(m => m.House, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.Building, "Строение", new { @class = "control-label" })</div>
+                            <div class="col-lg-1">@Html.TextBoxFor(m => m.Building, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.Corp, "Корпус", new { @class = "control-label" })</div>
+                            <div class="col-lg-1">@Html.TextBoxFor(m => m.Corp, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                            <div class="col-lg-1">@Html.LabelFor(m => m.Appartment, "Квартира", new { @class = "control-label" })</div>
+                            <div class="col-lg-1">@Html.TextBoxFor(m => m.Appartment, new { @type = "text", @class = "form-control blockedAfterShow" })</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-1 col-lg-1">@Html.ValidationMessageFor(m => m.House)</div>
+                        </div>
+
+                        <legend></legend>
+
+                        <h4>Дополнительно</h4>
+                        <div class="row">
+                            <div class="col-lg-4">@Html.LabelFor(m => m.SendByTemp, "Согласие на получение рекламной информации", new { @class = "control-label" })</div>
+                            <div class="col-lg-1">@Html.RadioButtonFor(m => m.SendByTemp, true, new { name = "radSendBy", id = "radSendBy1" })<label>Да</label></div>
+                            <div class="col-lg-1">@Html.RadioButtonFor(m => m.SendByTemp, false, new { name = "radSendBy", id = "radSendBy2" })<label>Нет</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-4 col-lg-4">@Html.ValidationMessageFor(m => m.SendByTemp)</div>
+                        </div>
+                        @Html.Hidden("isSendBy", Model.SendByTemp)
+
+                        <legend></legend>
+
+                        <div class="row buttonContainer">
+                            <button type="button" class="btn-default btn col-lg-2" onclick="openConfirmedModalBox()">Отменить</button>
+                            <button type="submit" class="btn-primary btn toLeft10px col-lg-2 col-lg-offset-6 blockedAfterShow" id="printButton" name="commBtn" value="runPrint">Печать заявления</button>
+                            <button type="submit" class="btn-primary btn col-lg-2 disabled notClickable" id="saveButton" name="commBtn" value="runSave">Сохранить</button>
+                        </div>
+
+                        <div class="row">
+                            <div id="saveMsgContainer">
+                                <p class="infoMsg col-lg-10"></p>
+                                <p class="erroreMsg col-lg-10"></p>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
